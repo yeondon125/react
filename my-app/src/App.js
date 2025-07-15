@@ -1,18 +1,44 @@
 import React from "react";
+import axios from "axios";
 
-function nowdate() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1
-  const day = String(today.getDate()).padStart(2, "0");
-  const formattedDate = `${year}${month}${day}`; // 예: 20250714
-  return formattedDate;
-}
+const today = new Date();
+
+// 내일 날짜 객체 만들기
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+
+// 오늘 날짜 구성
+const year1 = today.getFullYear();
+const month1 = String(today.getMonth() + 1).padStart(2, "0");
+const day1 = String(today.getDate()).padStart(2, "0");
+
+// 내일 날짜 구성
+const year2 = tomorrow.getFullYear();
+const month2 = String(tomorrow.getMonth() + 1).padStart(2, "0");
+const day2 = String(tomorrow.getDate()).padStart(2, "0");
+
+// 객체화
+const nowdate = {
+  today: {
+    date: today,
+    year: year1,
+    month: month1,
+    day: day1,
+    formattedDate: `${year1}${month1}${day1}`, // 예: 20250714
+  },
+  tomorrow: {
+    date: tomorrow,
+    year: year2,
+    month: month2,
+    day: day2,
+    formattedDate: `${year2}${month2}${day2}`, // 예: 20250715
+  },
+};
 
 // api 요청 후 응답 데이터
 const mealData = {
   today: {
-    date: nowdate(),
+    date: `${today.month}월 ${today.day}일`,
     breakfast: ["시리얼", "우유", "바나나"],
     lunch: ["김치찌개", "쌀밥", "계란말이"],
     dinner: ["닭가슴살 샐러드", "고구마", "방울토마토"],
